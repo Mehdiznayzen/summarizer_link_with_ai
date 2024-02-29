@@ -2,7 +2,6 @@
 
 import { LinksNavbar } from '@/constants';
 import logo from '@/public/images/logo-text.svg'
-import { Box } from '@chakra-ui/React';
 import Image from 'next/image';
 import Link from 'next/link';
 import { UserButton, useUser } from '@clerk/nextjs'
@@ -44,7 +43,7 @@ const Navbar = () => {
                 }
             }}
         >
-            <Box className='flex items-center gap-[20px] md:gap-[30px]'>
+            <div className='flex items-center gap-[20px] md:gap-[30px]'>
 
                 {/* Mobile navigation */}
                 <Sheet>
@@ -89,12 +88,12 @@ const Navbar = () => {
                         <SheetFooter className='flex flex-col gap-[20px] items-center justify-center'>
                             {
                                 user ? (
-                                    <Box className='flex items-center justify-center gap-[20px]'>
+                                    <div className='flex items-center justify-center gap-[20px]'>
                                         <UserButton afterSignOutUrl='/' />
                                         <ModeToggle />
-                                    </Box>
+                                    </div>
                                 ) : (
-                                    <Box className='flex items-center justify-center gap-[20px]'>
+                                    <div className='flex items-center justify-center gap-[20px]'>
                                         <Link 
                                             href={''}
                                             onClick={() => user && router.push('/sign-in')}
@@ -108,16 +107,16 @@ const Navbar = () => {
                                             </Button>
                                         </Link>
                                         <ModeToggle />
-                                    </Box>
+                                    </div>
                                 )
                             }
                         </SheetFooter>
-                        <Box className="flex items-center justify-center">
+                        <div className="flex items-center justify-center">
                             <p className="bottom-[4px] text-[17px] text-center font-semibold tracking-[2px] text-muted-foreground">
                                 &copy; Copyright. All rights reserved. <br />
                                 Made with <strong>Mehdi Znayzen</strong>
                             </p>
-                        </Box>
+                        </div>
                     </SheetContent>
                 </Sheet>
                 <Input type="search" placeholder="Search...." className='w-[300px] block md:hidden' />
@@ -147,19 +146,19 @@ const Navbar = () => {
                         })
                     }
                 </ul>
-            </Box>
-            <Box 
+            </div>
+            <div 
                 className='flex items-center gap-[10px]'
             >
                 {
                     user ? (
-                        <Box className='flex items-center gap-[20px]'>
+                        <div className='flex items-center gap-[20px]'>
                             <Input type="search" placeholder="Search...." className='w-[100px] xl:w-[100%] lg:block hidden' />
                             <UserButton afterSignOutUrl='/' />
                             <ModeToggle />
-                        </Box>
+                        </div>
                     ) : (
-                        <Box className='flex items-center gap-[20px]'>
+                        <div className='flex items-center gap-[20px]'>
                             <Input type="search" placeholder="Search...." className='w-[100px] xl:w-[100%] lg:block hidden' />
                             <Button variant='outline' className="text-muted-foreground">
                                 <Link 
@@ -170,10 +169,10 @@ const Navbar = () => {
                                 </Link>
                             </Button>
                             <ModeToggle />
-                        </Box>
+                        </div>
                     )
                 }
-            </Box>
+            </div>
         </motion.nav>
     )
 }
