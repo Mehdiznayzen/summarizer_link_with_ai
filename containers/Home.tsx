@@ -3,7 +3,6 @@
 import imageHero1 from '@/public/images/circuit-lines@2xl.ee1ad3dd.webp';
 import imageHero2 from '@/public/images/circuit-components@2xl.288e1b6c.webp'
 import Image from 'next/image';
-import { Box } from '@chakra-ui/react';
 import { Dancing_Script } from 'next/font/google';
 import ScrollButton from '@/components/ScrollButton';
 import ScrollHero from '@/components/ScrollHero'
@@ -40,7 +39,7 @@ const Home = () => {
 
             <div className='gradient'/>
 
-            <Box className="images_container">
+            <div className="images_container">
                 <Image 
                     src={imageHero1}
                     fill
@@ -53,8 +52,8 @@ const Home = () => {
                     alt='hero_image'
                     className='absolute w-full h-full top-[10px] z-0'
                 />
-            </Box>
-            <Box 
+            </div>
+            <div 
                 className="flex flex-col text-center gap-[40px] items-center justify-center"
                 style={{
                     position : 'relative',
@@ -120,7 +119,7 @@ const Home = () => {
                         }
                     </Dialog>
                 </motion.div>
-            </Box>
+            </div>
 
             {/* Scroll Button */}
             <ScrollButton />   

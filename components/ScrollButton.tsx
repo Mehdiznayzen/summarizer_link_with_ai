@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react"
 import { ArrowBigUp } from 'lucide-react'
 import { motion } from 'framer-motion'
-import { Box } from '@chakra-ui/React';
 
 const ScrollButton = () => {
     const [visible, setVisible] = useState(false)
@@ -31,7 +30,7 @@ const ScrollButton = () => {
     }, [])
 
     return (
-        <Box className="fixed bottom-[40px] right-[7px] sm:right-[30px] lg:right-[40px] z-50">
+        <div className="fixed bottom-[40px] right-[7px] sm:right-[30px] lg:right-[40px] z-50">
             {
                 visible && (
                     <motion.button
@@ -53,7 +52,7 @@ const ScrollButton = () => {
                     </motion.button>
                 )
             }
-        </Box>
+        </div>
     )
 }
 
