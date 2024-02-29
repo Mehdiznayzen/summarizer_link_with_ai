@@ -5,15 +5,12 @@ import animation from '@/public/images/dashboard_animation.json'
 import Lottie from 'react-lottie'
 import { useEffect, useState } from 'react';
 import { SentencesToGenerate } from '@/constants';
-import { FormSummarizer } from './../../../../components/shared/FormSummarizer';
+import { FormSummarizer } from '@/components/shared/FormSummarizer';
 import { cn } from '@/lib/utils';
 import copyIcon from '@/public/images/copy.svg'
 import tickIcon from '@/public/images/tick.svg'
 import loader from '@/public/images/loader.svg'
 import Image from 'next/image';
-
-
-
 
 const font = Dancing_Script({ 
     subsets: ["latin"],

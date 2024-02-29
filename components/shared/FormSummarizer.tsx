@@ -34,7 +34,7 @@ import { useLazyGetSummaryQuery } from "@/services/SummarizeApi"
 import { useEffect } from "react"
 
 const formSchema = z.object({
-    url: z.string().min(2, { message : 'URL is required !!'}),
+    url: z.string().min(2, { message : 'URL is required !!' }),
     language : z.string()
 })
 
@@ -51,8 +51,9 @@ const languages = [
     { value: 'FI', label: 'FI' },
 ] as const
 
+
 export function FormSummarizer({ setSummaryText, setIsFetching, setError } : any) {
-    const [getSummary, { error, isFetching }] = useLazyGetSummaryQuery()
+    const [getSummary, { error, isFetching }] = useLazyGetSummaryQuery<{ summary : string, error : string, isFetching : boolean }>();
     
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -67,12 +68,17 @@ export function FormSummarizer({ setSummaryText, setIsFetching, setError } : any
         setError(error)
     }, [getSummary, isFetching, error, setError, setIsFetching])
 
+
     async function onSubmit(values: z.infer<typeof formSchema>) {
-        const { data } = await getSummary({ url : values.url, language : values.language.toLowerCase()})
-        if(data?.summary){
-            setSummaryText(data?.summary)
+        const response = await getSummary({ url: values.url, language: values.language.toLowerCase() });
+        const data = response.data as { summary?: string };
+    
+        if (data?.summary) {
+            setSummaryText(data.summary);
         }
     }
+    
+
 
     return (
         <Form {...form}>
