@@ -13,6 +13,8 @@ import loader from '@/public/images/loader.svg'
 import Image from 'next/image';
 
 
+
+
 const font = Dancing_Script({ 
     subsets: ["latin"],
     weight : ['400', '500', '600', '700'] 
@@ -23,7 +25,7 @@ const Dashboard = () => {
     const [copy, setCopied] = useState<boolean>(false)
     const [summaryText, setSummaryText] = useState<string>('')
     const [isFetching, setIsFetching] = useState<boolean>()
-    const [error, setError] = useState(null)
+    const [error, setError] = useState<{ data?: { error: string } } | null>(null);
     
     useEffect(() => {
         const randomNumber = Math.floor(Math.random() * SentencesToGenerate.length)
