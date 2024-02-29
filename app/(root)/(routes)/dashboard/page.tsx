@@ -3,7 +3,6 @@
 import { Dancing_Script } from 'next/font/google'
 import animation from '@/public/images/dashboard_animation.json'
 import Lottie from 'react-lottie'
-import { Box } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { SentencesToGenerate } from '@/constants';
 import { FormSummarizer } from './../../../../components/shared/FormSummarizer';
@@ -72,7 +71,7 @@ const Dashboard = () => {
             
             {/* Form container */}
 
-            <Box 
+            <div 
                 className='flex flex-col gap-[100px] lg:flex-row justify-center lg:justify-start p-[10px]'
             >
                 <div 
@@ -98,7 +97,7 @@ const Dashboard = () => {
                     }
                     {
                         isFetching ? (
-                            <Box
+                            <div
                                 className="w-full h-full flex flex-col items-center justify-center"
                             >
                                 <p
@@ -111,7 +110,7 @@ const Dashboard = () => {
                                     alt="loader" 
                                     className='w-20 h-20 object-contain' 
                                 /> 
-                            </Box>
+                            </div>
                         ) : 
                         error ? (
                             <h2
@@ -126,7 +125,7 @@ const Dashboard = () => {
                                 </span>
                             </h2>
                         ) : (
-                            <Box className="flex flex-col gap-[10px]">
+                            <div className="flex flex-col gap-[10px]">
                                 <h1
                                     className="font-semibold tracking-[0.6px] text-muted-foreground text-center text-[13px]"
                                 >
@@ -146,11 +145,11 @@ const Dashboard = () => {
                                         className="w-[30px] bg-[#EEF5FF] cursor-pointer p-1 rounded-xl "
                                     />
                                 }
-                            </Box>
+                            </div>
                         )
                     }
                 </div>
-            </Box>
+            </div>
         </div>
     )
 }

@@ -65,7 +65,7 @@ export function FormSummarizer({ setSummaryText, setIsFetching, setError } : any
     useEffect(() => {
         setIsFetching(isFetching)
         setError(error)
-    }, [getSummary, isFetching, error])
+    }, [getSummary, isFetching, error, setError, setIsFetching])
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
         const { data } = await getSummary({ url : values.url, language : values.language.toLowerCase()})

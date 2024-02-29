@@ -1,5 +1,5 @@
 'use client'
-import { Box } from '@chakra-ui/react'
+
 import Image from 'next/image'
 import { Tilt } from 'react-tilt'
 import { motion } from 'framer-motion';
@@ -29,7 +29,7 @@ const TestimonialCard = ({ image, message, name, id } : TestimonialCardProps) =>
                         {message}
                     </p>
 
-                    <Box className='mt-7 flex justify-around items-center gap-1'>
+                    <div className='mt-7 flex justify-around items-center gap-1'>
                         <div className='flex-1 flex flex-col'>
                             <p className='font-medium text-[16px] text-muted-foreground"'>
                                 <span className='blue-text-gradient text-[#596FB7] mr-2'>@</span> 
@@ -43,7 +43,7 @@ const TestimonialCard = ({ image, message, name, id } : TestimonialCardProps) =>
                             width={32}
                             height={32}
                         />
-                    </Box>
+                    </div>
                 </div>
             </motion.div>
         </Tilt>
