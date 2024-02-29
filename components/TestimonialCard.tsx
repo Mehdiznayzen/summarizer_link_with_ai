@@ -21,7 +21,7 @@ const TestimonialCard = ({ image, message, name, id } : TestimonialCardProps) =>
                 initial="hidden"
                 whileInView='show'
             >
-                <p className='text-muted-foreground font-black text-[48px]'>"</p>
+                <p className='text-muted-foreground font-black text-[48px]'>{"\""}</p>
                 <div className="mt-1">
                     <p
                         className="tracking-[1px] text-muted-foreground"

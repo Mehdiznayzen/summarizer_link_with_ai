@@ -116,7 +116,7 @@ const Dashboard = () => {
                             <h2
                                 className={cn("text-center text-muted-foreground", font.className)}
                             >
-                                Well, that's wasn't supposed to happen...
+                                Well, that s wasn t supposed to happen...
                                 <br />
                                 <span className='font-normal text-gray-500'>
                                     {
