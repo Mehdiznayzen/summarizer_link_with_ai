@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { ChatForm } from "@/validation/chatForm"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { IoSend } from "react-icons/io5";
 import { useLazyGetSummaryQuery } from "@/services/SummarizeApi"
 import { ScrollArea } from "@/components/ui/scroll-area"
@@ -37,6 +37,19 @@ import {
     TooltipTrigger,
 } from "@/components/ui/tooltip"
 import { BiSolidLike } from "react-icons/bi";
+import { checkUserPay } from "@/lib/actions/checkUserPay.action"
+import {
+    AlertDialog,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+import { MdTranslate } from "react-icons/md"
+import TranslationComponent from "./TranslationComponent"
+import logo from '@/public/icons/logo-text.svg'
 
 
 interface ChatContainerProps{
@@ -65,7 +78,19 @@ const ChatContainer = ({ idCurrentChat, isActiveChat } : ChatContainerProps) => 
     const { loadingMessages, messages } = useSelector((state : any) => state.summarizer)
     const dispatch = useDispatch()
     const [copied, setCopied] = useState<boolean>(false)
+    const [showTranslate, setShowTranslate] = useState<boolean>(false)
 
+    // Use effect for fetching is user exist or not
+    useEffect(() => {
+        const checkUser = async () => {
+            const result = await checkUserPay(user?.emailAddresses[0].emailAddress)
+            if(result){
+                setShowTranslate(true)
+            }
+        }
+        checkUser()
+    })
+    
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const inputText = e.target.value;
         setButtonDisabled(inputText.trim() === '')
@@ -95,6 +120,7 @@ const ChatContainer = ({ idCurrentChat, isActiveChat } : ChatContainerProps) => 
                     };
                     dispatch(actions.addMessages(newMessage))
                     await axios.post('http://127.0.0.1:8000/api/messages', newMessage);
+                    
                     form.reset();
                 } else {
                     toast.error('Summary not found or invalid data received.', toastOptions);
@@ -116,7 +142,6 @@ const ChatContainer = ({ idCurrentChat, isActiveChat } : ChatContainerProps) => 
                 id_message : id_message
             }
             const { data } = await axios.post('http://127.0.0.1:8000/api/likes', newLike)
-            console.log(data)
             if(data.status === true){
                 toast.success("I would like to thank you warmly 😊.", toastOptions);
             }else {
@@ -213,8 +238,7 @@ const ChatContainer = ({ idCurrentChat, isActiveChat } : ChatContainerProps) => 
                                             <p className="text-muted-foreground text-[16px]">Bot</p>
                                         </div>
                                         <div className="mt-3 text-muted-foreground text-[13px] tracking-[1px] flex flex-col gap-[7px]">
-                                            <p 
-                                            >
+                                            <p >
                                                 {ai_message}
                                             </p>
                                             <div className="flex gap-[10px] items-center justify-start relative">
@@ -242,6 +266,40 @@ const ChatContainer = ({ idCurrentChat, isActiveChat } : ChatContainerProps) => 
                                                         onClick={() => addNewLike(idCurrentChat, message.id)} 
                                                     />
                                                 </div>
+                                                
+                                                {
+                                                    showTranslate && (
+                                                        <AlertDialog>
+                                                            <AlertDialogTrigger asChild>
+                                                                <MdTranslate 
+                                                                    className="text-[15px]"
+                                                                />
+                                                            </AlertDialogTrigger>
+                                                            <AlertDialogContent>
+                                                                <AlertDialogHeader className="flex items-center justify-center flex-col gap-[5px]">
+                                                                    <Image
+                                                                        src={logo}
+                                                                        width={160}
+                                                                        height={160}
+                                                                        alt="Logo"
+                                                                        className='object-contain flex items-center justify-center'
+                                                                    />
+                                                                    <AlertDialogDescription>
+                                                                        Choose the language you want to translate into and enjoy 🥳✨❤️.
+                                                                    </AlertDialogDescription>
+                                                                </AlertDialogHeader>
+                                                                
+                                                                <TranslationComponent
+                                                                    message_id={message.id}
+                                                                />
+                                                                
+                                                                <AlertDialogFooter>
+                                                                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                                </AlertDialogFooter>
+                                                            </AlertDialogContent>
+                                                        </AlertDialog>
+                                                    )
+                                                }
                                             </div>
                                         </div>
                                     </div>

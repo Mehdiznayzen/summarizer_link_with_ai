@@ -11,6 +11,16 @@ class messagesController extends Controller
         return messagesModel::where('chat_id', $request->input('chat_id'))->get();
     }
 
+    public function show($id) {
+        $message = messagesModel::where('id', $id)->first();
+
+        if (!$message) {
+            return response()->json(['error' => 'Message not found'], 404);
+        }
+
+        return response()->json($message);
+    }
+
     public function store(Request $request){
         $newMessage = [
             'user_message' => $request->input('user_message'),

@@ -4,7 +4,7 @@ import Sidebar from '@/components/shared/Sidebar';
 import { Provider } from 'react-redux';
 import { Store } from "@/services/Store";
 import ChatContainer from '@/components/shared/ChatContainer';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import {
     Sheet,

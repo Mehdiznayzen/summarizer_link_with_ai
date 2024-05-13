@@ -3,16 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\contactModel;
+use Illuminate\Support\Facades\DB;
 
 class contactController extends Controller
 {
     public function store(Request $request) {
-        $newContact = contactModel::create([
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'message' => $request->input('message')
-        ]);
+        $name = $request->input('name');
+        $email = $request->input('email');
+        $message = $request->input('message');
+
+        $newContact = DB::statement('CALL create_contact(?, ?, ?)', [$name, $email, $message]);
 
         return response()->json([
             'status' => true,

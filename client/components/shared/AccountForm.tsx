@@ -53,9 +53,9 @@ const AccountForm = ({ userData }: AccountFormProps) => {
         defaultValues: {
             id : userData.id,
             username: userData?.username ? userData.username : '',
-            email: userData?.email ? userData.email : '', 
-            bio: userData?.bio ? userData.bio : '', 
-            image: userData?.image ? userData.image : '', 
+            email: userData?.email ? userData.email : '',
+            bio: userData?.bio ? userData.bio : '',
+            image: userData?.image ? userData.image : '',
         }
     })
 
@@ -80,6 +80,8 @@ const AccountForm = ({ userData }: AccountFormProps) => {
     }
 
     const onSubmit = async (values: z.infer<typeof userValidation>) => {
+        const email = await values.email
+        const username = await values.username
         try {
             setIsLoading(true)
             const blob = values.image
@@ -93,12 +95,18 @@ const AccountForm = ({ userData }: AccountFormProps) => {
             }
             if(!values.id || !values.username || !values.email || !values.bio || !values.image){
                 toast.error('Please fill the fields first and try again !!', toastOptions)
+                return ;
             }
-
+            
             const response = await axios.post('http://127.0.0.1:8000/api/users', values)
+            
             if (response.data.status === false) {
                 toast.error(response.data.message, toastOptions)
             }else {
+                await axios.post('api/send', {
+                    email, 
+                    username
+                })
                 router.push('/')
             }
         }catch (error: any) {
@@ -190,6 +198,7 @@ const AccountForm = ({ userData }: AccountFormProps) => {
                                     type='text'
                                     className='account-form_input no-focus'
                                     {...field}
+                                    disabled={true}
                                 />
                             </FormControl>
                             <FormMessage />
@@ -216,7 +225,6 @@ const AccountForm = ({ userData }: AccountFormProps) => {
                         </FormItem>
                     )}
                 />
-
                 <Button
                     type='submit'
                     variant={'btnChat'}
@@ -226,6 +234,7 @@ const AccountForm = ({ userData }: AccountFormProps) => {
                         isLoading ? 'Submitting...' : 'Continue'
                     }
                 </Button>
+
             </form>
         </Form>
     )

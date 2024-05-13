@@ -4,7 +4,7 @@ import { LinksNavbar } from '@/constants';
 import logo from '@/public/icons/logo-text.svg'
 import Image from 'next/image';
 import Link from 'next/link';
-import { UserButton, SignUpButton, SignedIn, SignedOut } from '@clerk/nextjs'
+import { UserButton, SignUpButton, SignedIn, SignedOut, useUser } from '@clerk/nextjs'
 import { Button } from './ui/button';
 import { ModeToggle } from './DarkMode';
 import { GanttChart } from 'lucide-react'
@@ -91,8 +91,8 @@ const Navbar = () => {
                                 <div className='flex items-center gap-[20px]'>
                                     <SignUpButton
                                         mode='modal'
-                                        afterSignInUrl='/onboarding'
-                                        afterSignUpUrl='/onboarding'
+                                        afterSignInUrl={'/onboarding'}
+                                        afterSignUpUrl={'/onboarding'}
                                     >   
                                         <Button variant={'outline'}>
                                             Sign Up
@@ -148,15 +148,15 @@ const Navbar = () => {
                 </SignedIn>
                 <SignedOut>
                     <div className='flex items-center gap-[20px]'>
-                            <SignUpButton
-                                mode='modal'
-                                afterSignInUrl='/onboarding'
-                                afterSignUpUrl='/onboarding'
-                            >   
-                                <Button variant={'outline'}>
-                                    Sign Up
-                                </Button>
-                            </SignUpButton>
+                        <SignUpButton
+                            mode='modal'
+                            afterSignInUrl={'/onboarding'}
+                            afterSignUpUrl={'/onboarding'}
+                        >   
+                            <Button variant={'outline'}>
+                                Sign Up
+                            </Button>
+                        </SignUpButton>
                         <ModeToggle />
                     </div>
                 </SignedOut>

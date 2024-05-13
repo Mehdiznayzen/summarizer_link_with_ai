@@ -47,6 +47,10 @@ import { getAllchats } from '@/services/Slice';
 import { DNA } from "react-loader-spinner"
 import FormUpdateChat from "./FormUpdateChat"
 import { useAuth } from '@clerk/nextjs'
+import { useRouter } from "next/navigation"
+import Link from "next/link"
+import { checkUserPay } from "@/lib/actions/checkUserPay.action"
+import { WiStars } from "react-icons/wi";
 
 const font = Dancing_Script({ 
     subsets: ["latin"],
@@ -76,6 +80,18 @@ const Sidebar = ({ setIdCurrentChat, setIsActiveChat } : SidebarProps) => {
     const [chatUpdate, setChatUpdate] = useState<string>('')
     const [loadingUpdate, setLoadingUpdate] = useState<boolean>(false)
     const { signOut } = useAuth()
+    const router = useRouter()
+    const [showUpgradePlan, setShowUpgradePlan] = useState<boolean>(true)
+
+    useEffect(() => {
+        const checkUser = async () => {
+            const result = await checkUserPay(user?.emailAddresses[0].emailAddress)
+            if(result){
+                setShowUpgradePlan(false)
+            }
+        }
+        checkUser()
+    })
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -91,7 +107,7 @@ const Sidebar = ({ setIdCurrentChat, setIsActiveChat } : SidebarProps) => {
                 await axios.post('http://127.0.0.1:8000/api/chats', newChat);
                 document.getElementById('dialog-trigger-button')?.click();
                 toast.success('Your chat is created.', toastOptions)
-                // location.reload()
+                location.reload()
             } catch (error) {
                 console.error('Error adding chat:', error);
             }
@@ -358,7 +374,7 @@ const Sidebar = ({ setIdCurrentChat, setIsActiveChat } : SidebarProps) => {
                                                     }
                                                 </p>
                                                 <div className="flex items-center gap-[6px]">
-                                                    <AlertDialog >
+                                                    <AlertDialog>
                                                         <AlertDialogTrigger asChild>
                                                             <MdOutlineEdit 
                                                                 className="text-[15px]"
@@ -430,14 +446,34 @@ const Sidebar = ({ setIdCurrentChat, setIsActiveChat } : SidebarProps) => {
             </ScrollArea>
 
             <div className="flex items-center justify-between gap-[10px]">
-                <div className="">
+                <div className="flex items-center gap-[30px]">
                     <Button
                         variant="outline"
                         size="icon"
-                        onClick={() => signOut()}
+                        onClick={async () => {
+                            router.push('/')
+                            await signOut();              
+                        }}
                     >
                         <LogOut className="h-4 w-4" />
                     </Button>
+
+                    {
+                        showUpgradePlan && (
+                            <Link
+                                href={'https://buy.stripe.com/test_7sIg0D7bV8EU5P27ss'} 
+                                target="_blank"
+                            >
+                                <Button
+                                    variant="outline"
+                                    className="flex items-center gap-1"
+                                    size="icon"
+                                >
+                                    <WiStars />
+                                </Button>
+                            </Link>
+                        )
+                    }
                 </div>
             </div>
         </div>

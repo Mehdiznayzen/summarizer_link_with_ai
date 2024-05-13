@@ -4,11 +4,17 @@ import "./globals.css";
 import { ClerkProvider } from '@clerk/nextjs'
 import { cn } from "@/lib/utils";
 import { ToastContainer } from 'react-toastify'
+import dynamic from "next/dynamic";
 
 const font = Roboto_Slab({ 
   subsets: ["latin"], 
-  weight : ['100', '200', '300', '400', '500', '600', '700', '800', '900'] 
+  weight : ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
+  variable:'--roboto-font'
 });
+
+// Add the NoSSR component using dynamic
+const NoSSR = dynamic(() => import('../components/no-ssr'), { ssr: false });
+
 
 export const metadata: Metadata = {
   title: "Summarizer App",
@@ -24,6 +30,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
               className={cn('overflow-x-hidden', font.className)}
             >
               <div>
+                <NoSSR />
                 {children}
               </div>
               <ToastContainer />

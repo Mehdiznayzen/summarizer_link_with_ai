@@ -50,37 +50,38 @@ function ContactForm() {
         if(!user){
             toast.error("Ahh, You have to be login. Please sign in.", toastOptions)
             setIsSending(false)
+        }else {
+            emailjs.send(
+                'service_8im5319',
+                'template_p2mk507',
+                {
+                    from_name : values.name,
+                    to_name : "Mehdi",
+                    from_email : values.email,
+                    to_email : 'mehdiznayzen@gmail.com',
+                    message : values.message
+                },
+                'iYqZQ0Q_aQ1_7Y9nX'
+            )
+    
+            .then(async () => {
+                const newContact = {
+                    name : values.name,
+                    email : values.email,
+                    message : values.message
+                }
+                await axios.post('http://127.0.0.1:8000/api/contact', newContact)
+                toast.success("Thank you. I will get back to you as soon as possible.", toastOptions)
+                setIsSending(false);
+            })
+            
+            .catch((error) => {
+                setIsSending(false);
+                console.error(error);
+                toast.error("Ahh, something went wrong. Please try again.", toastOptions)
+            })
         }
 
-        emailjs.send(
-            'service_8im5319',
-            'template_p2mk507',
-            {
-                from_name : values.name,
-                to_name : "Mehdi",
-                from_email : values.email,
-                to_email : 'mehdiznayzen@gmail.com',
-                message : values.message
-            },
-            'iYqZQ0Q_aQ1_7Y9nX'
-        )
-
-        .then(async () => {
-            const newContact = {
-                name : values.name,
-                email : values.email,
-                message : values.message
-            }
-            await axios.post('http://127.0.0.1:8000/api/contact', newContact)
-            toast.success("Thank you. I will get back to you as soon as possible.", toastOptions)
-            setIsSending(false);
-        })
-        
-        .catch((error) => {
-            setIsSending(false);
-            console.error(error);
-            toast.error("Ahh, something went wrong. Please try again.", toastOptions)
-        })
     }
 
     return (
