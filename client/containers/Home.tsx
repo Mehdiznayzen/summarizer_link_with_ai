@@ -20,6 +20,7 @@ import {
 import logo from '@/public/icons/logo-text.svg'
 import { useRouter } from 'next/navigation';
 import { useUser } from '@clerk/nextjs';
+import FlipWords from '@/components/acernityUI/FlipWords';
 
 const font = Dancing_Script({
     subsets: ["latin"],
@@ -35,9 +36,8 @@ const Home = () => {
             id="#" 
             className="min-h-screen mt-[100px] px-6 sm:px-10 lg:px-16"
         >
-
-            <div className='gradient'/>
-
+            <div className="gradient" />
+            
             <div className="images_container">
                 <Image 
                     src={imageHero1}
@@ -69,12 +69,13 @@ const Home = () => {
                     initial="hidden"
                     whileInView='show'
                 >
-                    Introducing the future of <span>AI</span> With <br className="hidden lg:block"/>
-                    Article <span className="title_home">
-                        Extractor and Summarizer
-                    </span>
+                    Introducing the future of <span>AI</span> With URL <br className="hidden lg:block"/> 
+                    <FlipWords
+                        className={''}
+                        words={['Extractor', 'Summarizer']}
+                    />
                 </motion.h1>
-                <motion.p 
+                <motion.p
                     style={{ fontSize:"20px", letterSpacing:"1px" }}
                     className="text-muted-foreground"
                     variants={fadeIn("left", "spring", 0.4, 0.6)}

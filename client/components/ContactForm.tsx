@@ -22,6 +22,7 @@ import { formContact } from "@/validation/ValidateContactForm"
 import { useState } from "react"
 import axios from 'axios'
 import { useUser } from "@clerk/nextjs";
+import { Textarea } from "./ui/textarea";
 
 const toastOptions = {
     position: "top-right" as "top-right",
@@ -116,9 +117,8 @@ function ContactForm() {
                             <FormLabel>Your Email</FormLabel>
                             <FormControl>
                                 <Input 
-                                    placeholder="Ex : Mehdi Znayzen" 
+                                    placeholder={'Enter you email : '} 
                                     type="email"
-                                    disabled={isSending}
                                     {...field}
                                 />
                             </FormControl>
@@ -134,10 +134,11 @@ function ContactForm() {
                         <FormItem>
                             <FormLabel>Your message</FormLabel>
                             <FormControl>
-                                <Input 
-                                    placeholder="Ex : Hi Mehdi" 
-                                    disabled={isSending}
-                                    {...field} 
+                                <Textarea
+                                    rows={5}
+                                    className='no-focus'
+                                    {...field}
+                                    placeholder="Ex: Hi ! Mehdi"
                                 />
                             </FormControl>
                             <FormMessage />
@@ -147,7 +148,7 @@ function ContactForm() {
 
                 <Button 
                     type="submit" 
-                    variant={'purple'} 
+                    variant={'purple'}
                     disabled={isSending}
                 >
                     { 

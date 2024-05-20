@@ -2,16 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-*{
+* {
   list-style: none;
   text-decoration: none;
 }
 
-html{
-  --line-color : #ccc
+html {
+  --line-color: #ccc;
 }
 
-.navbar{
+.navbar {
   backdrop-filter: blur(60px);
 }
 
@@ -23,14 +23,13 @@ html{
   border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb {
-  background: #ccc; 
+  background: #ccc;
   border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #CAC6FD; 
+  background: #CAC6FD;
   cursor: pointer;
 }
-
 
 .gradient {
   height: fit-content;
@@ -46,7 +45,6 @@ html{
   opacity: 0.15;
   animation: changeColors 1s infinite alternate;
 }
-
 
 @keyframes changeColors {
   0% {
@@ -69,14 +67,12 @@ html{
   }
 }
 
-.gradient-about{
+.gradient-about {
   height: fit-content;
   width: 100%;
   max-width: 640px;
   position: absolute;
   content: "";
-  width: 100%;
-  height: 100%;
   filter: blur(100px) saturate(150%);
   top: 910px;
   left: 170px;
@@ -105,15 +101,12 @@ html{
   }
 }
 
-
-.gradient-features{
+.gradient-features {
   height: 70vh;
   width: 100%;
   max-width: 640px;
   position: absolute;
   content: "";
-  width: 100%;
-  height: 100%;
   filter: blur(100px) saturate(150%);
   top: -30px;
   left: 500px;
@@ -142,25 +135,25 @@ html{
   }
 }
 
-.testimonial_card{
+.testimonial_card {
   backdrop-filter: blur(70px);
 }
 
-.contact_card{
+.contact_card {
   backdrop-filter: blur(50px);
 }
 
-.info__container{
+.info__container {
   width: 100%;
   height: 100%;
   background: url('../public/images/bgIMG.png');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  border-radius : 25px;
+  border-radius: 25px;
 }
 
-.imaginify__container{
+.imaginify__container {
   min-height: 100vh;
   width: 100%;
   background: url('../public/images/bgIMG.png');
@@ -182,6 +175,19 @@ html{
   background-position: center;
   backdrop-filter: blur(40px);
   width: 100%;
+}
+
+.credits_container{
+  background: url('../public/images/bgIMG.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 @layer base {

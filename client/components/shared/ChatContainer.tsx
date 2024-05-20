@@ -28,14 +28,8 @@ import loader from '@/public/icons/loader.svg'
 import { cn } from "@/lib/utils"
 import { Dancing_Script } from "next/font/google"
 import { actions } from "@/services/Slice"
-import copyIcon from '@/public/icons/copy.svg'
+import copyIcon from '@/public/icons/copy.svg';
 import tickIcon from '@/public/icons/tick.svg'
-import {
-    Tooltip,
-    TooltipContent,
-    TooltipProvider,
-    TooltipTrigger,
-} from "@/components/ui/tooltip"
 import { BiSolidLike } from "react-icons/bi";
 import { checkUserPay } from "@/lib/actions/checkUserPay.action"
 import {
@@ -50,6 +44,9 @@ import {
 import { MdTranslate } from "react-icons/md"
 import TranslationComponent from "./TranslationComponent"
 import logo from '@/public/icons/logo-text.svg'
+import DateFormat from "./DateFormat"
+import { MdContentCopy } from "react-icons/md";
+import { FaCheck } from "react-icons/fa";
 
 
 interface ChatContainerProps{
@@ -73,7 +70,7 @@ const font = Dancing_Script({
 
 const ChatContainer = ({ idCurrentChat, isActiveChat } : ChatContainerProps) => {
     const [isButtonDisabled, setButtonDisabled] = useState(true);
-    const [getSummary, { error, isFetching }] = useLazyGetSummaryQuery();
+    const [getSummary, { isFetching }] = useLazyGetSummaryQuery();
     const { user } = useUser()
     const { loadingMessages, messages } = useSelector((state : any) => state.summarizer)
     const dispatch = useDispatch()
@@ -194,14 +191,14 @@ const ChatContainer = ({ idCurrentChat, isActiveChat } : ChatContainerProps) => 
                         </div>
                     ) : (
                         messages?.map((message : any, index : any) => {
-                            const { user_message, ai_message } = message
+                            const { user_message, ai_message, created_at } = message
                             return (
                                 <div 
                                     key={index} 
                                     className="flex flex-col gap-[17px] mt-3 w-full"
                                 >
                                     <div
-                                        className="rounded-xl flex flex-col border cursor-pointer border-gray-200 bg-white/20 shadow-[inset_10px_-50px_94px_0_rgb(199,199,199,0.2)] testimonial_card p-4"
+                                        className="rounded-xl flex flex-col border border-gray-200 bg-white/20 shadow-[inset_10px_-50px_94px_0_rgb(199,199,199,0.2)] testimonial_card p-4"
                                     >
                                         <div 
                                             className="flex items-center gap-[10px]"
@@ -224,7 +221,7 @@ const ChatContainer = ({ idCurrentChat, isActiveChat } : ChatContainerProps) => 
                                     </div>
                                     
                                     <div
-                                        className="rounded-xl flex flex-col border cursor-pointer border-gray-200 bg-white/20 shadow-[inset_10px_-50px_94px_0_rgb(199,199,199,0.2)] testimonial_card p-4"
+                                        className="rounded-xl flex flex-col border border-gray-200 bg-white/20 shadow-[inset_10px_-50px_94px_0_rgb(199,199,199,0.2)] testimonial_card p-4"
                                     >
                                         <div 
                                             className="flex items-center gap-[10px]"
@@ -238,68 +235,64 @@ const ChatContainer = ({ idCurrentChat, isActiveChat } : ChatContainerProps) => 
                                             <p className="text-muted-foreground text-[16px]">Bot</p>
                                         </div>
                                         <div className="mt-3 text-muted-foreground text-[13px] tracking-[1px] flex flex-col gap-[7px]">
-                                            <p >
+                                            <p>
                                                 {ai_message}
                                             </p>
-                                            <div className="flex gap-[10px] items-center justify-start relative">
-                                                <TooltipProvider>
-                                                    <Tooltip>
-                                                        <TooltipTrigger asChild>
-                                                            <Image
-                                                                src={copied ? tickIcon : copyIcon}
-                                                                alt={copied ? 'tick_icon' : 'copyIcon'}
-                                                                onClick={() => handleCopy(ai_message)}
-                                                                className="w-[2.5%] h-[2.5%] object-contain rounded-md cursor-pointer p-1 border-gray-200 hover:bg-white/20 hover:shadow-[inset_10px_-50px_94px_0_rgb(199,199,199,0.2)] testimonial_card"
-                                                            />
-                                                        </TooltipTrigger>
-                                                        <TooltipContent className="absolute border-gray-200 left-5 w-[64px]">
-                                                            <p 
-                                                                className="text-muted-foreground"
-                                                            >
-                                                                Copy
-                                                            </p>
-                                                        </TooltipContent>
-                                                    </Tooltip>
-                                                </TooltipProvider>
-                                                <div>
-                                                    <BiSolidLike 
-                                                        onClick={() => addNewLike(idCurrentChat, message.id)} 
-                                                    />
-                                                </div>
-                                                
-                                                {
-                                                    showTranslate && (
-                                                        <AlertDialog>
-                                                            <AlertDialogTrigger asChild>
-                                                                <MdTranslate 
-                                                                    className="text-[15px]"
-                                                                />
-                                                            </AlertDialogTrigger>
-                                                            <AlertDialogContent>
-                                                                <AlertDialogHeader className="flex items-center justify-center flex-col gap-[5px]">
-                                                                    <Image
-                                                                        src={logo}
-                                                                        width={160}
-                                                                        height={160}
-                                                                        alt="Logo"
-                                                                        className='object-contain flex items-center justify-center'
+                                            
+                                            <div className="flex items-center justify-between">
+                                                <div className="flex gap-[10px] items-center relative">
+                                                    <div
+                                                        onClick={() => handleCopy(ai_message)}
+                                                        className="rounded-md cursor-pointer p-1 border-gray-200 hover:bg-white/20 hover:shadow-[inset_10px_-50px_94px_0_rgb(199,199,199,0.2)] testimonial_card"
+                                                    >
+                                                        {
+                                                            copied ? <FaCheck /> : <MdContentCopy />
+                                                        }
+                                                    </div>
+
+                                                    <div className="cursor-pointer">
+                                                        <BiSolidLike
+                                                            onClick={() => addNewLike(idCurrentChat, message.id)} 
+                                                        />
+                                                    </div>
+
+                                                    {
+                                                        showTranslate && (
+                                                            <AlertDialog>
+                                                                <AlertDialogTrigger asChild>
+                                                                    <MdTranslate 
+                                                                        className="text-[15px] cursor-pointer"
                                                                     />
-                                                                    <AlertDialogDescription>
-                                                                        Choose the language you want to translate into and enjoy 🥳✨❤️.
-                                                                    </AlertDialogDescription>
-                                                                </AlertDialogHeader>
-                                                                
-                                                                <TranslationComponent
-                                                                    message_id={message.id}
-                                                                />
-                                                                
-                                                                <AlertDialogFooter>
-                                                                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                                </AlertDialogFooter>
-                                                            </AlertDialogContent>
-                                                        </AlertDialog>
-                                                    )
-                                                }
+                                                                </AlertDialogTrigger>
+                                                                <AlertDialogContent>
+                                                                    <AlertDialogHeader className="flex items-center justify-center flex-col gap-[5px]">
+                                                                        <Image
+                                                                            src={logo}
+                                                                            width={160}
+                                                                            height={160}
+                                                                            alt="Logo"
+                                                                            className='object-contain flex items-center justify-center cursor-pointer'
+                                                                        />
+                                                                        <AlertDialogDescription>
+                                                                            Choose the language you want to translate into and enjoy 🥳✨❤️.
+                                                                        </AlertDialogDescription>
+                                                                    </AlertDialogHeader>
+                                                                    
+                                                                    <TranslationComponent
+                                                                        message_id={message.id}
+                                                                    />
+                                                                    
+                                                                    <AlertDialogFooter>
+                                                                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                                    </AlertDialogFooter>
+                                                                </AlertDialogContent>
+                                                            </AlertDialog>
+                                                        )
+                                                    }
+                                                </div>
+                                                <div className="">
+                                                    <DateFormat created_at={created_at} />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

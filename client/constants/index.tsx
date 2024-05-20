@@ -12,9 +12,6 @@ import { IoLogoWhatsapp } from "react-icons/io";
 import { FaFacebook } from "react-icons/fa6";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 
-import { MdSummarize } from "react-icons/md";
-import { FaClipboardList } from "react-icons/fa";
-
 
 export const LinksNavbar = [
     {
@@ -144,3 +141,39 @@ export const Link__footer2 = [
         link : 'Contact'
     },
 ]
+
+
+export const plans = [
+    {
+        id: 1,
+        name: "Free",
+        icon: "/icons/free-plan.svg",
+        price: 0,
+        inclusions: [
+            {
+                label: "Free Credits",
+                isIncluded: true,
+            },
+            {
+                label: "Traducation for the message",
+                isIncluded: false,
+            },
+        ],
+    },
+    {
+        id: 2,
+        name: "Pro Package",
+        icon: "/icons/free-plan.svg",
+        price: 10,
+        inclusions: [
+            {
+                label: "Free Credits",
+                isIncluded: true,
+            },
+            {
+                label: "Traducation for the message",
+                isIncluded: true,
+            },
+        ],
+    },
+];

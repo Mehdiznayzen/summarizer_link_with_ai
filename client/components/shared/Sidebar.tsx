@@ -48,9 +48,8 @@ import { DNA } from "react-loader-spinner"
 import FormUpdateChat from "./FormUpdateChat"
 import { useAuth } from '@clerk/nextjs'
 import { useRouter } from "next/navigation"
-import Link from "next/link"
 import { checkUserPay } from "@/lib/actions/checkUserPay.action"
-import { WiStars } from "react-icons/wi";
+import { FaBagShopping } from "react-icons/fa6"
 
 const font = Dancing_Script({ 
     subsets: ["latin"],
@@ -460,18 +459,16 @@ const Sidebar = ({ setIdCurrentChat, setIsActiveChat } : SidebarProps) => {
 
                     {
                         showUpgradePlan && (
-                            <Link
-                                href={'https://buy.stripe.com/test_7sIg0D7bV8EU5P27ss'} 
-                                target="_blank"
+                            <Button
+                                variant="outline"
+                                className="flex items-center gap-1"
+                                size="icon"
+                                onClick={async () => {
+                                    router.push('/credits')
+                                }}
                             >
-                                <Button
-                                    variant="outline"
-                                    className="flex items-center gap-1"
-                                    size="icon"
-                                >
-                                    <WiStars />
-                                </Button>
-                            </Link>
+                                <FaBagShopping className="text-[17px]"/>
+                            </Button>
                         )
                     }
                 </div>

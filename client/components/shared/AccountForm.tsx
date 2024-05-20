@@ -217,7 +217,7 @@ const AccountForm = ({ userData }: AccountFormProps) => {
                             <FormControl>
                                 <Textarea
                                     rows={10}
-                                    className='account-form_input no-focus'
+                                    className='no-focus'
                                     {...field}
                                 />
                             </FormControl>
