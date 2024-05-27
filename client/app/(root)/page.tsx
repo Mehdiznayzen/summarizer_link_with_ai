@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import Navbar from '@//components/Navbar';
 import ScrollProgress from "@/components/ScrollProgress";
 import { ThemeProvider } from '@/components/theme-provider';
+import CardsLayout from '../../containers/CardsLayout';
 
 
 export default function Page() {
@@ -18,6 +19,7 @@ export default function Page() {
         <Navbar />
         <Home />
         <About />
+        <CardsLayout />
         <Features />
         <Footer />
       </div>

@@ -50,7 +50,7 @@ const About = () => {
                         whileInView='show'
                         className="text-center text-muted-foreground text-[16px]"
                     >
-                        Welcome to ChatGPT Summarizer, an innovative service that makes life easier by generating instant summaries for websites. <br />
+                        Welcome to Imaginify, an innovative service that makes life easier by generating instant summaries for websites. <br />
                         Simply provide a page URL, and our intelligent API will create a concise and informative summary. Whether you need <br />
                         to summarize articles, blogs, or reports, ChatGPT Summarizer lets you quickly get the gist without having to read <br />
                         the entire content. Save time and quickly access key information with our text summarization tool powered by the 

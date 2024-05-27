@@ -300,8 +300,8 @@ const Sidebar = ({ setIdCurrentChat, setIsActiveChat } : SidebarProps) => {
                                                             <AlertDialogHeader>
                                                                 <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                                                                 <AlertDialogDescription>
-                                                                    This action cannot be undone. This will permanently delete your
-                                                                    chat and remove your data from our servers.
+                                                                    This action cannot be undone. This will permanently update your
+                                                                    chat and update your data in our servers.
                                                                 </AlertDialogDescription>
                                                             </AlertDialogHeader>
                                                             <FormUpdateChat 
@@ -396,9 +396,14 @@ const Sidebar = ({ setIdCurrentChat, setIsActiveChat } : SidebarProps) => {
                                                                 <AlertDialogCancel>Cancel</AlertDialogCancel>
                                                                 <AlertDialogAction 
                                                                     onClick={() => updateChat(id, chatUpdate)} 
-                                                                    className="hover:text-accent-foreground bg-[#864AF9] text-white"
                                                                 >
-                                                                    Update
+                                                                    <Button
+                                                                        type="submit"
+                                                                        variant={'outline'}
+                                                                        className="hover:text-accent-foreground bg-[#864AF9] text-white"
+                                                                    >
+                                                                        Update
+                                                                    </Button>
                                                                 </AlertDialogAction>
                                                             </AlertDialogFooter>
                                                         </AlertDialogContent>

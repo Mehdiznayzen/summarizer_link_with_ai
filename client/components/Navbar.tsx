@@ -4,7 +4,7 @@ import { LinksNavbar } from '@/constants';
 import logo from '@/public/icons/logo-text.svg'
 import Image from 'next/image';
 import Link from 'next/link';
-import { UserButton, SignUpButton, SignedIn, SignedOut, useUser } from '@clerk/nextjs'
+import { UserButton, SignUpButton, SignedIn, SignedOut } from '@clerk/nextjs'
 import { Button } from './ui/button';
 import { ModeToggle } from './DarkMode';
 import { GanttChart } from 'lucide-react'

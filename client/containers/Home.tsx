@@ -82,8 +82,8 @@ const Home = () => {
                     initial="hidden"
                     whileInView='show'
                 >
-                    Simplify your reading with Summarize, an open-source article summarizer that transforms <br />
-                    lengthy articles into clear and concise summaries
+                    Simplify your reading with Summarize, an open-source URL resume that transforms<br />
+                    long web pages into clear and concise summaries.
                 </motion.p>
                 <motion.div
                     variants={fadeIn("left", "spring", 0.4, 0.6)}
